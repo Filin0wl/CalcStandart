@@ -1,7 +1,9 @@
 package com.example.calcstandart
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import kotlinx.android.synthetic.main.button.*
 import kotlinx.android.synthetic.main.input_layout.*
 import net.objecthunter.exp4j.ExpressionBuilder
@@ -13,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         buttonOne.setOnClickListener{appendOnExpression( string = "1",canClear = true)}
         buttonTwo.setOnClickListener{appendOnExpression( string = "2",canClear = true)}
@@ -55,6 +59,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 textViewShowSolution.text = result.toString()
             }
+            openNewActivity()
+
         }
 
     }
@@ -72,5 +78,13 @@ class MainActivity : AppCompatActivity() {
             textViewShowSolution.text = ""
         }
 
+    }
+
+    fun openNewActivity(){
+        val tykIntent =  Intent(this, SecondActivity::class.java)
+        val countString = textViewShowSolution.text.toString()
+        val count = Integer.parseInt(countString)
+        tykIntent.putExtra(SecondActivity.TOTAL_COUNT, count)
+        startActivity(tykIntent)
     }
 }
